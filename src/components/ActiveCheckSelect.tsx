@@ -40,7 +40,7 @@ const ActiveCheckSelect: React.FC<Props> = ({ label, placeholder, required }) =>
       <div className="w-full">
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center justify-start gap-2">
-            <div className="text-white text-[10px] rounded-full p-[6px] bg-blue-400">JW</div>
+            <div className="text-white text-[10px] rounded-full p-[4px] bg-blue-400">JW</div>
             <div>{title}</div>
           </div>
           {value === selectValue && <IconCheck size={20} className="text-blue-500 inside-hidden" />}
