@@ -132,7 +132,7 @@ const Home = () => {
                     }}
                   />
                   <TextInput
-                    type="text"
+                    type="time"
                     label="To"
                     placeholder="00:00"
                     required
