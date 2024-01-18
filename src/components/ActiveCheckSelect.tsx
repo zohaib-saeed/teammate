@@ -6,9 +6,15 @@ interface Props {
   label: string;
   placeholder: string;
   required?: boolean;
+  withOptionMark?: boolean;
 }
 
-const ActiveCheckSelect: React.FC<Props> = ({ label, placeholder, required }) => {
+const ActiveCheckSelect: React.FC<Props> = ({
+  label,
+  placeholder,
+  required,
+  withOptionMark = true,
+}) => {
   const selectData = [
     { value: 'Jop Walternick 1', title: 'Jop Walternick' },
     { value: 'Jop Walternick 2', title: 'Jop Walternick' },
@@ -39,7 +45,9 @@ const ActiveCheckSelect: React.FC<Props> = ({ label, placeholder, required }) =>
       <div className="w-full">
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center justify-start gap-2">
-            <div className="text-white text-[10px] rounded-full p-[4px] bg-blue-400">JW</div>
+            {!withOptionMark && (
+              <div className="text-white text-[10px] rounded-full p-[4px] bg-blue-400">JW</div>
+            )}
             <div>{title}</div>
           </div>
           {value === selectValue && <IconCheck size={20} className="text-blue-500 inside-hidden" />}

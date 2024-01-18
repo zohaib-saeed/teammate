@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { FiPlus as IconPlus } from 'react-icons/fi';
 import { RiDeleteBinLine as IconDelete } from 'react-icons/ri';
-import { MdArrowDropUp as IconUp } from 'react-icons/md';
-import { MdArrowDropDown as IconDown } from 'react-icons/md';
 import { AiOutlineBold as IconBold } from 'react-icons/ai';
 import { RiPaintFill as IconHighlight } from 'react-icons/ri';
 import { MdFormatListBulleted as IconBulletList } from 'react-icons/md';
 import { HiMiniBars3BottomLeft as IconAlignLeft } from 'react-icons/hi2';
 import { BsTypeUnderline as IconUnderline } from 'react-icons/bs';
-import { Button, Modal, ScrollArea, Switch, NumberInput } from '@mantine/core';
+import { Button, Modal, ScrollArea, Switch, NumberInput, TextInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { RichTextEditor } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
@@ -29,6 +27,8 @@ const Home = () => {
   const [opened, { open, close }] = useDisclosure(false);
   // States
   const [materialSwitch, setMaterialSwitch] = useState(false);
+  const [fromTime, setFromTime] = useState('');
+  const [toTime, setToTime] = useState('');
 
   const content = '<p>Add a comment</p>';
 
@@ -42,6 +42,28 @@ const Home = () => {
     ],
     content,
   });
+
+  const handleTimeChange = (value: string, setTime: any) => {
+    if (value.length < 6) {
+      // Check if the character is a number
+      const isDigit = /\d/.test(value);
+
+      if (isDigit) {
+        if (value.length === 1 && parseInt(value[0]) < 3) {
+          setTime(value);
+        } else if (value.length === 2 && parseInt(value[1]) < 4) {
+          setTime(value + ':');
+        } else if (value.length === 4 && parseInt(value[3]) < 6) {
+          setTime(`${value[0]}${value[0]}:${value[3]}`);
+        } else if (value.length === 5 && parseInt(value[4]) <= 9) {
+          setTime(`${value[0]}${value[0]}:${value[3]}${value[4]}`);
+        }
+      } else {
+        // Handle non-digit input
+        console.error('Invalid input. Please enter a digit.');
+      }
+    }
+  };
 
   return (
     <>
@@ -86,82 +108,41 @@ const Home = () => {
                 />
               </div>
               <div className="w-full grid sm:grid-cols-2 gap-3 lg:gap-6">
-                {!materialSwitch ? (
-                  <div className="w-full grid grid-cols-2 gap-3 lg:gap-6">
-                    <NumberInput
-                      label="From"
-                      placeholder="00:00"
-                      required
-                      hideControls
-                      classNames={{
-                        root: 'w-full',
-                        required: 'text-black',
-                        input: 'text-slate-500 font-semibold mt-1 placeholder:text-slate-500',
-                      }}
-                    />
-                    <NumberInput
-                      label="To"
-                      placeholder="00:00"
-                      required
-                      hideControls
-                      classNames={{
-                        root: 'w-full',
-                        required: 'text-black',
-                        input: 'text-slate-500 font-semibold mt-1 placeholder:text-slate-500',
-                      }}
-                    />
-                  </div>
-                ) : (
-                  <NumberInput
-                    label="Hours"
-                    placeholder="Enter the Number of Hours"
+                <NumberInput
+                  label="Hours"
+                  placeholder="Enter the Number of Hours"
+                  required
+                  hideControls
+                  classNames={{
+                    root: 'w-full',
+                    required: 'text-black',
+                    input: 'text-slate-500 font-semibold mt-1 placeholder:text-slate-500',
+                  }}
+                />
+                <div className="w-full grid grid-cols-2 gap-3 lg:gap-6">
+                  <TextInput
+                    type="time"
+                    label="From"
+                    placeholder="00:00"
                     required
-                    hideControls
                     classNames={{
                       root: 'w-full',
                       required: 'text-black',
                       input: 'text-slate-500 font-semibold mt-1 placeholder:text-slate-500',
                     }}
                   />
-                )}
-                {!materialSwitch ? (
-                  <NumberInput
-                    label="Hours"
-                    placeholder="Enter the Number of Hours"
+                  <TextInput
+                    type="text"
+                    label="To"
+                    placeholder="00:00"
                     required
-                    hideControls
                     classNames={{
                       root: 'w-full',
                       required: 'text-black',
                       input: 'text-slate-500 font-semibold mt-1 placeholder:text-slate-500',
                     }}
                   />
-                ) : (
-                  <div className="w-full grid grid-cols-2 gap-3 lg:gap-6">
-                    <NumberInput
-                      label="From"
-                      placeholder="00:00"
-                      required
-                      hideControls
-                      classNames={{
-                        root: 'w-full',
-                        required: 'text-black',
-                        input: 'text-slate-500 font-semibold mt-1 placeholder:text-slate-500',
-                      }}
-                    />
-                    <NumberInput
-                      label="To"
-                      placeholder="00:00"
-                      required
-                      hideControls
-                      classNames={{
-                        root: 'w-full',
-                        required: 'text-black',
-                        input: 'text-slate-500 font-semibold mt-1 placeholder:text-slate-500',
-                      }}
-                    />
-                  </div>
-                )}
+                </div>
               </div>
               <div className="w-full flex flex-col items-start justify-start gap-1">
                 <div className="font-medium text-black text-sm">Comment</div>
@@ -177,30 +158,6 @@ const Home = () => {
                   }}
                 >
                   <RichTextEditor.Toolbar className="!text-slate-500">
-                    {/* Font Weight  */}
-                    <div className="flex items-center justify-between gap-3 mr-2">
-                      <div className="font-light text-slate-500">Normal</div>
-                      <div className="flex flex-col items-center justify-center">
-                        <div className="p-0 bg-transparent -mb-2">
-                          <IconUp className="text-slate-500" size={20} />
-                        </div>
-                        <div className="p-0 bg-transparent -mt-[6px]">
-                          <IconDown className="text-slate-500" size={20} />
-                        </div>
-                      </div>
-                    </div>
-                    {/* Font Family  */}
-                    <div className="flex items-center justify-between gap-3 mr-2">
-                      <div className="font-light text-slate-500">Sailec Light</div>
-                      <div className="flex flex-col items-center justify-center">
-                        <div className="p-0 bg-transparent -mb-2">
-                          <IconUp className="text-slate-500" size={20} />
-                        </div>
-                        <div className="p-0 bg-transparent -mt-[6px]">
-                          <IconDown className="text-slate-500" size={20} />
-                        </div>
-                      </div>
-                    </div>
                     <RichTextEditor.Bold icon={() => <IconBold />} />
                     <RichTextEditor.Italic />
                     <RichTextEditor.Underline icon={() => <IconUnderline />} />
@@ -229,7 +186,7 @@ const Home = () => {
                 />
               </div>
               {!materialSwitch ? (
-                <div className="w-full flex-1 flex flex-col items-center justify-center px-4 py-4">
+                <div className="w-full min-h-[250px] flex-1 flex flex-col items-center justify-center px-4 py-4">
                   <p className="w-full text-gray-400 font-normal text-base text-center">
                     Start adding items to show them here
                   </p>
@@ -266,15 +223,20 @@ const Home = () => {
                       <div className="px-4">Actions</div>
                     </div>
                     {/* Table Body  */}
-                    {[0, 1, 2, 3, 4].map((item, index) => (
-                      <div className="w-full text-slate-500 text-sm font-medium grid grid-cols-[1fr_0.5fr_0.5fr] gap-2 border-t-[1px] border-solid border-gray-300 py-4">
-                        <div className="px-4">Wall Paint Paper</div>
-                        <div className="px-4">04</div>
-                        <div className="px-4">
-                          <IconDelete size={20} className="text-red-500 " />
+                    <ScrollArea scrollbarSize={5} h={260} className="w-full">
+                      {[0, 1, 2, 3, 4, 5, 6].map((item, index) => (
+                        <div
+                          key={index}
+                          className="w-full text-slate-500 text-sm font-medium grid grid-cols-[1fr_0.5fr_0.5fr] gap-2 border-t-[1px] border-solid border-gray-300 py-4"
+                        >
+                          <div className="px-4">Wall Paint Paper</div>
+                          <div className="px-4">04</div>
+                          <div className="px-4">
+                            <IconDelete size={20} className="text-red-500 cursor-pointer" />
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </ScrollArea>
                   </div>
                 </div>
               )}
