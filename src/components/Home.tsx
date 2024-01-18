@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import classes from './Home.module.css';
 import { FiPlus as IconPlus } from 'react-icons/fi';
 import { RiDeleteBinLine as IconDelete } from 'react-icons/ri';
 import { MdArrowDropUp as IconUp } from 'react-icons/md';
@@ -8,16 +7,13 @@ import { AiOutlineBold as IconBold } from 'react-icons/ai';
 import { RiPaintFill as IconHighlight } from 'react-icons/ri';
 import { MdFormatListBulleted as IconBulletList } from 'react-icons/md';
 import { HiMiniBars3BottomLeft as IconAlignLeft } from 'react-icons/hi2';
-import { GoItalic as IconItalic } from 'react-icons/go';
 import { BsTypeUnderline as IconUnderline } from 'react-icons/bs';
-import { Button, Modal, Select, Switch, NumberInput } from '@mantine/core';
+import { Button, Modal, ScrollArea, Switch, NumberInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { RichTextEditor } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
-import FontFamily from '@tiptap/extension-font-family';
-import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -61,6 +57,7 @@ const Home = () => {
         opened={opened}
         onClose={close}
         title="Uren toevoegen"
+        scrollAreaComponent={ScrollArea.Autosize}
         withCloseButton
         classNames={{
           header: 'bg-blue-500 text-white font-medium lg:px-8',

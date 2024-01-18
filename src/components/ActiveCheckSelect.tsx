@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import classes from './Home.module.css';
 import { FaCircleCheck as IconCheck } from 'react-icons/fa6';
 import { Combobox, Input, InputBase, useCombobox } from '@mantine/core';
 
