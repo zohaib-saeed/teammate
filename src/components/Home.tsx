@@ -92,7 +92,12 @@ const Home = () => {
             {/* Col 1 */}
             <div className="w-full flex flex-col items-center justify-start gap-3 lg:gap-6">
               <div className="w-full grid sm:grid-cols-2 gap-3 lg:gap-6">
-                <ActiveCheckSelect label="Employee" placeholder="Select a Employee" required />
+                <ActiveCheckSelect
+                  label="Employee"
+                  placeholder="Select a Employee"
+                  required
+                  withOptionMark
+                />
                 <ActiveCheckSelect label="Project" placeholder="Select a Project" required />
               </div>
               <div className="w-full grid sm:grid-cols-2 gap-3 lg:gap-6">
