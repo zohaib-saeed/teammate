@@ -6,6 +6,9 @@ import { MdArrowDropUp as IconUp } from 'react-icons/md';
 import { MdArrowDropDown as IconDown } from 'react-icons/md';
 import { AiOutlineBold as IconBold } from 'react-icons/ai';
 import { RiPaintFill as IconHighlight } from 'react-icons/ri';
+import { MdFormatListBulleted as IconBulletList } from 'react-icons/md';
+import { HiMiniBars3BottomLeft as IconAlignLeft } from 'react-icons/hi2';
+import { GoItalic as IconItalic } from 'react-icons/go';
 import { BsTypeUnderline as IconUnderline } from 'react-icons/bs';
 import { Button, Modal, Select, Switch, NumberInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -170,17 +173,17 @@ const Home = () => {
                   editor={editor}
                   title="Comment"
                   classNames={{
-                    root: 'w-full custom-style-list',
+                    root: 'w-full custom-style-list text',
                     control: 'border-0 p-0 min-w-auto',
                     toolbar: 'border-b-0 py-2 px-2 gap-0 ',
                     content: 'max-h-[300px] min-h-[120px] overflow-auto !text-slate-500 py-0',
                     typographyStylesProvider: 'px-0 py-0',
                   }}
                 >
-                  <RichTextEditor.Toolbar>
+                  <RichTextEditor.Toolbar className="!text-slate-500">
                     {/* Font Weight  */}
                     <div className="flex items-center justify-between gap-3 mr-2">
-                      <div className="font-normal text-slate-500">Normal</div>
+                      <div className="font-light text-slate-500">Normal</div>
                       <div className="flex flex-col items-center justify-center">
                         <div className="p-0 bg-transparent -mb-2">
                           <IconUp className="text-slate-500" size={20} />
@@ -192,7 +195,7 @@ const Home = () => {
                     </div>
                     {/* Font Family  */}
                     <div className="flex items-center justify-between gap-3 mr-2">
-                      <div className="font-normal text-slate-500">Inter</div>
+                      <div className="font-light text-slate-500">Sailec Light</div>
                       <div className="flex flex-col items-center justify-center">
                         <div className="p-0 bg-transparent -mb-2">
                           <IconUp className="text-slate-500" size={20} />
@@ -202,13 +205,13 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-                    <RichTextEditor.Bold />
+                    <RichTextEditor.Bold icon={() => <IconBold />} />
                     <RichTextEditor.Italic />
-                    <RichTextEditor.Underline />
+                    <RichTextEditor.Underline icon={() => <IconUnderline />} />
                     <RichTextEditor.Strikethrough />
-                    <RichTextEditor.Highlight />
-                    <RichTextEditor.AlignLeft />
-                    <RichTextEditor.BulletList />
+                    <RichTextEditor.Highlight icon={() => <IconHighlight />} />
+                    <RichTextEditor.AlignLeft icon={() => <IconAlignLeft size={18} />} />
+                    <RichTextEditor.BulletList icon={() => <IconBulletList size={18} />} />
                   </RichTextEditor.Toolbar>
 
                   <RichTextEditor.Content />
@@ -216,8 +219,8 @@ const Home = () => {
               </div>
             </div>
             {/* Col 2  */}
-            <div className="w-full flex flex-col items-center justify-start gap-2 border-[1px] rounded-lg border-gray-200 border-solid">
-              <div className="w-full px-4 py-4 flex items-center justify-between border-b-[1px] broder-solid border-gray-200">
+            <div className="w-full flex flex-col items-center justify-start gap-2 border-[1px] rounded-lg border-gray-300 border-solid">
+              <div className="w-full px-4 py-4 flex items-center justify-between border-b-[1px] broder-solid border-gray-300">
                 <div className="font-medium text-black text-base">Add Materials</div>
                 <Switch
                   checked={materialSwitch}
@@ -268,7 +271,7 @@ const Home = () => {
                     </div>
                     {/* Table Body  */}
                     {[0, 1, 2, 3, 4].map((item, index) => (
-                      <div className="w-full text-slate-500 text-sm font-medium grid grid-cols-[1fr_0.5fr_0.5fr] gap-2 border-t-[1px] border-solid border-gray-200 py-4">
+                      <div className="w-full text-slate-500 text-sm font-medium grid grid-cols-[1fr_0.5fr_0.5fr] gap-2 border-t-[1px] border-solid border-gray-300 py-4">
                         <div className="px-4">Wall Paint Paper</div>
                         <div className="px-4">04</div>
                         <div className="px-4">

@@ -13,6 +13,13 @@ body {
 
 .ProseMirror {
   padding-top: 0px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.ProseMirror .is-editor-empty {
+  color: rgb(71 85 105) !important;
+  font-weight: 500;
 }
 
 .mantine-InputBase-input .inside-hidden {
