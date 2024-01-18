@@ -13,7 +13,7 @@ const ActiveCheckSelect: React.FC<Props> = ({
   label,
   placeholder,
   required,
-  withOptionMark = true,
+  withOptionMark = false,
 }) => {
   const selectData = [
     { value: 'Jop Walternick 1', title: 'Jop Walternick' },
@@ -45,7 +45,7 @@ const ActiveCheckSelect: React.FC<Props> = ({
       <div className="w-full">
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center justify-start gap-2">
-            {!withOptionMark && (
+            {withOptionMark && (
               <div className="text-white text-[10px] rounded-full p-[4px] bg-blue-400">JW</div>
             )}
             <div>{title}</div>
